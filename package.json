@@ -1,0 +1,11 @@
+{
+  "name": "keya",
+  "version": "0.0.0",
+  "description": "A simple, universal document store for building isomorphic libraries",
+  "main": "entry/node.js",
+  "browser": "entry/browser.js",
+  "repository": "https://github.com/MayorMonty/keya",
+  "author": "Brendan McGuire",
+  "license": "MIT",
+  "private": false
+}
