@@ -100,7 +100,7 @@ module.exports = (function() {
               r.onsuccess = () => resolve();
               r.onerror = reject;
             } else {
-              c.continue();
+              c && c.continue();
             }
           };
           cursor.onerror = reject;
