@@ -19,4 +19,7 @@ keya.has("name").then(console.log); // A boolean
 
 // Get an object with all documents
 keya.all().then(console.log); // An object
+
+// Remove a document
+keya.remove("name").then(console.log); // Resolves nothing
 ```
