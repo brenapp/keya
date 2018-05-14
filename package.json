@@ -1,7 +1,7 @@
 {
   "name": "keya",
   "version": "0.0.0",
-  "description": "A simple, universal document store for building isomorphic libraries",
+  "description": "A simple, universal document store",
   "main": "entry/node.js",
   "browser": "entry/browser.js",
   "repository": "https://github.com/MayorMonty/keya",
