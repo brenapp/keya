@@ -80,9 +80,7 @@ module.exports = (function() {
             tx.onerror = reject;
           })
       )
-      .then(
-        list => ((out = {}), list.forEach(v => (out[v.name] = v.result)), out)
-      );
+      .then(list => list.reduce((a, b) => ((a[b.name] = b.value), a), {}));
   }
 
   function remove(doc) {
