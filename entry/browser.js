@@ -37,6 +37,7 @@ module.exports = (function() {
   }
 
   function resolve(doc) {
+    if (!indexedDB) return Promise.resolve(localStorage["keya-" + doc]);
     return openDB().then(
       store =>
         new Promise((resolve, reject) => {
@@ -48,6 +49,10 @@ module.exports = (function() {
   }
 
   function store(doc, value) {
+    if (!indexedDB) {
+      localStorage["keya-" + doc] = JSON.stringify(value);
+      return Promise.resolve(true);
+    }
     return openDB().then(
       store =>
         new Promise((resolve, reject) => {
@@ -59,6 +64,13 @@ module.exports = (function() {
   }
 
   function all() {
+    if (!indexedDB) {
+      return Promise.resolve(
+        Object.keys(localStorage)
+          .filter(key => /keya\-.+/.exec(key))
+          .reduce((a, b) => ((a[b.name] = b.value), a), {})
+      );
+    }
     return openDB()
       .then(
         store =>
@@ -74,6 +86,10 @@ module.exports = (function() {
   }
 
   function remove(doc) {
+    if (!indexedDB) {
+      delete localStorage["keya-" + doc];
+      return Promise.resolve();
+    }
     return openDB().then(
       store =>
         new Promise((resolve, reject) => {
