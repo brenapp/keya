@@ -1,5 +1,7 @@
 # Keya
 
+WANTED: Help with tests! Please get in touch!
+
 A simple, universal document store. Keya works both in Node (storing documents in the filesystem, and in the browser, using IndexedDB, or localhost)
 
 ## API
