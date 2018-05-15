@@ -13,7 +13,7 @@ module.exports = (function() {
     window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
   if (!indexedDB)
     console.warn(
-      "IndexedDB is not supported in this browser, localStorage will be instead used"
+      "IndexedDB is not supported in this browser, localStorage will be instead used. This means that keya will be severely limited in its capacity"
     );
 
   function openDB() {
