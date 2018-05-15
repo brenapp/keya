@@ -23,11 +23,19 @@ module.exports = (function() {
               );
             }
           } else {
-            fs.readFile(
-              file,
-              (err, contents) =>
-                err ? reject(err) : resolve(JSON.parse(contents.toString()))
-            );
+            fs.readFile(file, (err, contents) => {
+              if (err) reject(err);
+              try {
+                resolve(JSON.parse(contents.toString()));
+              } catch (e) {
+                // Cache file is invalid, just empty it and start anew
+                fs.writeFile(
+                  file,
+                  "{}",
+                  err => (err ? reject(err) : resolve({}))
+                );
+              }
+            });
           }
         }
       );
