@@ -1,6 +1,6 @@
 {
   "name": "keya",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "A simple, universal document store",
   "main": "out/node/main.js",
   "browser": "entry/browser.js",
