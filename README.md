@@ -2,26 +2,52 @@
 
 WANTED: Help with tests! Please get in touch!
 
-A simple, universal document store. Keya works both in Node (storing documents in the filesystem, and in the browser, using IndexedDB, or localhost)
+A simple, universal document store. Keya supports the following storage mediums:
+
+- Filesystem (Nodejs)
+- IndexedDB (Browser)
+- LocalStorage (Browser, backup)
 
 ## API
 
+Import
+
 ```javascript
-var keya = require("keya");
+import * as keya from "keya";
+// Or, if not using modules:
+const keya = require("keya");
+```
 
-// Set a document
-keya.set("name", { a: 234 }).then(console.log); // Resolves nothing
+Access a store
 
-// Get a document by name
-// This method will return undefined for documents that don't exist
-keya.get("name").then(console.log); // An object
+> If the store does not exist when you call this, it will be created automatically for you
 
-// Test for the existance of a document
-keya.has("name").then(console.log); // A boolean
+```javascript
+const store = await keya.store("records");
+```
 
-// Get an object with all documents
-keya.all().then(console.log); // An object
+Set a value
 
-// Remove a document
-keya.remove("name").then(console.log); // Resolves nothing
+```javascript
+await store.set("document", { value: 345 });
+```
+
+Get a value
+
+```javascript
+const record = await store.get("document");
+```
+
+Find values
+
+```javascript
+const records = store.find(
+  (value, name) => name.includes("e") && value.v == 12
+);
+```
+
+Clear the store
+
+```javascript
+store.clear();
 ```
