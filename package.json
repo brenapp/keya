@@ -2,10 +2,13 @@
   "name": "keya",
   "version": "0.0.6",
   "description": "A simple, universal document store",
-  "main": "entry/node.js",
+  "main": "out/node/main.js",
   "browser": "entry/browser.js",
   "repository": "https://github.com/MayorMonty/keya",
   "author": "Brendan McGuire",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "@types/node": "^11.13.5"
+  }
 }
