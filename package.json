@@ -10,5 +10,8 @@
   "private": false,
   "devDependencies": {
     "@types/node": "^11.13.5"
+  },
+  "scripts": {
+    "prepublish": "rm -rf out && tsc -d"
   }
 }

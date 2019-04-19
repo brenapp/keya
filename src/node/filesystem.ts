@@ -59,7 +59,11 @@ export default class FileSystemStore extends Store {
   store: { [key: string]: any } = {};
   async load(): Promise<void> {
     return fs.readFile(this.file).then(buffer => {
-      this.store = JSON.parse(buffer.toString());
+      try {
+        this.store = JSON.parse(buffer.toString());
+      } catch {
+        this.store = {};
+      }
     });
   }
   async save(): Promise<void> {
