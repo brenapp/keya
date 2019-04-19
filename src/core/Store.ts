@@ -5,29 +5,61 @@
 
 export default abstract class Store {
   name: string;
-  version: number;
+  version: number = 0;
 
-  // API surface
-  abstract async get(key: string): Promise<any>;
-  abstract async set(key: string, value: any): Promise<boolean>;
+  abstract store: { [key: string]: any };
 
-  abstract async find(
-    finder: (value: any, name: string) => Promise<boolean> | boolean
-  ): Promise<any[]>;
-  abstract async all(): Promise<any[]>;
+  // API Implementation
+  async get(key: string) {
+    await this.load();
+    return this.store[key];
+  }
 
-  abstract async clear(): Promise<void>;
+  async set(key: string, value: any) {
+    await this.load();
+    this.store[key] = value;
+
+    try {
+      await this.save();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async delete(key: string) {
+    await this.load();
+    return delete this.store[key];
+  }
+
+  async all() {
+    await this.load();
+    return Object.keys(this.store).map(key => ({
+      key,
+      value: this.store[key]
+    }));
+  }
+
+  async find(finder: (value: any, name: string) => Promise<boolean> | boolean) {
+    let all = await this.all();
+    let include = await Promise.all(
+      all.map(({ value, key }) => finder(value, key))
+    );
+
+    return all.filter((v, i, a) => include[i]);
+  }
+
+  async clear() {
+    this.store = {};
+    await this.save();
+  }
 
   // Lifecycle
   abstract async initalize(): Promise<void>;
   abstract async load(): Promise<void>;
   abstract async save(): Promise<void>;
 
-  constructor(name: string, version = 0) {
+  constructor(name: string) {
     this.name = name;
-    this.version = version;
-
-    this.initalize();
-    this.load();
   }
 }
