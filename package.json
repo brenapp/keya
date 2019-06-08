@@ -9,9 +9,13 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@types/node": "^11.13.5"
+    "@types/node": "^11.13.5",
+    "mocha": "^6.1.4"
   },
   "scripts": {
     "prepublish": "rm -rf out && tsc -d"
+  },
+  "dependencies": {
+    "sqlite": "^3.0.3"
   }
 }

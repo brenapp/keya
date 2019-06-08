@@ -1,7 +1,8 @@
 import FileSystemStore from "./filesystem";
+import SQLiteStore from "./sqlite";
 
 export async function store(name: string) {
-  const store = new FileSystemStore(name);
+  const store = new SQLiteStore(name);
   await store.initalize();
   await store.load();
 
@@ -9,5 +10,5 @@ export async function store(name: string) {
 }
 
 export async function stores() {
-  return FileSystemStore.stores();
+  return SQLiteStore.stores();
 }
