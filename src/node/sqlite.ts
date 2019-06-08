@@ -16,11 +16,15 @@ export default class SQLiteStore extends Store {
   async initalize() {
     this.db = await sqlite.open(DB);
 
+    // Ensure store table exists
     await this.db.run(
       `CREATE TABLE IF NOT EXISTS ${
         this.name
       } (id TINYTEXT PRIMARY KEY, value TEXT)`
     );
+    
+    // Make reads/writes not affect each other, giving fewer concurrency errors
+    await this.db.run("PRAGMA journal_mode = WAL;")
 
     this.statements = {
       get: await this.db.prepare(`SELECT * from "${this.name}" WHERE id = ?`),
