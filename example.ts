@@ -14,6 +14,6 @@ import * as keya from "./src/node/main";
   let all = await store.all();
   console.log(all);
 
-  const record = await store.get("matches");
+  const record = await store.get("jeheh");
   console.log(record);
 })().catch(e => console.log(e.stack));

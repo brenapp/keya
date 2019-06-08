@@ -42,7 +42,7 @@ export default class SQLiteStore extends Store {
   async get(key: string) {
     return this.db
       .get(`SELECT * from "${this.name}" WHERE id = ?`, key)
-      .then(({ value }) => JSON.parse(value).value);
+      .then(res => (res ? JSON.parse(res.value).value : undefined));
   }
 
   async set(key: string, value: any) {

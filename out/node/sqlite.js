@@ -113,10 +113,7 @@ var SQLiteStore = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.db
                         .get("SELECT * from \"" + this.name + "\" WHERE id = ?", key)
-                        .then(function (_a) {
-                        var value = _a.value;
-                        return JSON.parse(value).value;
-                    })];
+                        .then(function (res) { return (res ? JSON.parse(res.value).value : undefined); })];
             });
         });
     };
