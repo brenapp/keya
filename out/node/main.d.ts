@@ -1,3 +1,3 @@
-import FileSystemStore from "./filesystem";
-export declare function store(name: string): Promise<FileSystemStore>;
-export declare function stores(): Promise<FileSystemStore[]>;
+import SQLiteStore from "./sqlite";
+export declare function store(name: string): Promise<SQLiteStore>;
+export declare function stores(): Promise<any[]>;

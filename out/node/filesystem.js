@@ -168,7 +168,12 @@ var FileSystemStore = /** @class */ (function (_super) {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, fs_1.promises.readFile(this.file).then(function (buffer) {
-                        _this.store = JSON.parse(buffer.toString());
+                        try {
+                            _this.store = JSON.parse(buffer.toString());
+                        }
+                        catch (_a) {
+                            _this.store = {};
+                        }
                     })];
             });
         });

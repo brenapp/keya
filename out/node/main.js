@@ -38,14 +38,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var filesystem_1 = __importDefault(require("./filesystem"));
+var sqlite_1 = __importDefault(require("./sqlite"));
 function store(name) {
     return __awaiter(this, void 0, void 0, function () {
         var store;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    store = new filesystem_1.default(name);
+                    store = new sqlite_1.default(name);
                     return [4 /*yield*/, store.initalize()];
                 case 1:
                     _a.sent();
@@ -61,7 +61,7 @@ exports.store = store;
 function stores() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, filesystem_1.default.stores()];
+            return [2 /*return*/, sqlite_1.default.stores()];
         });
     });
 }
