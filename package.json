@@ -3,17 +3,24 @@
   "version": "1.0.1",
   "description": "A simple, universal document store",
   "main": "out/node/main.js",
-  "browser": "entry/browser.js",
+  "browser": "out/browser/main.js",
   "repository": "https://github.com/MayorMonty/keya",
   "author": "Brendan McGuire",
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^11.13.5",
-    "mocha": "^6.1.4"
+    "@types/typescript": "^2.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1"
   },
   "scripts": {
-    "prepublish": "rm -rf out && tsc -d"
+    "prepublish": "rm -rf out && tsc -d",
+    "test:node": "mocha --require ts-node/register test/node/*.ts"
   },
   "dependencies": {
     "sqlite": "^3.0.3"

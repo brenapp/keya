@@ -9,7 +9,7 @@ export default abstract class Store {
 
   abstract store: { [key: string]: any };
 
-  // API Implementation
+  // API Implementation, overwritten by local implementations (but commonalities like find can be preserved)
   async get(key: string) {
     await this.load();
     return this.store[key];
@@ -50,8 +50,9 @@ export default abstract class Store {
   }
 
   async clear() {
-    this.store = {};
-    await this.save();
+    return this.all().then(keys =>
+      keys.forEach(record => this.delete(record.key))
+    );
   }
 
   // Lifecycle

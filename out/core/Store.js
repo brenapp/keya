@@ -44,7 +44,7 @@ var Store = /** @class */ (function () {
         this.version = 0;
         this.name = name;
     }
-    // API Implementation
+    // API Implementation, overwritten by local implementations (but commonalities like find can be preserved)
     Store.prototype.get = function (key) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -130,15 +130,11 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.clear = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.store = {};
-                        return [4 /*yield*/, this.save()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
+                return [2 /*return*/, this.all().then(function (keys) {
+                        return keys.forEach(function (record) { return _this.delete(record.key); });
+                    })];
             });
         });
     };

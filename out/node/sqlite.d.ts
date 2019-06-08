@@ -17,5 +17,5 @@ export default class SQLiteStore extends Store {
         key: any;
         value: any;
     }[]>;
-    static stores(): Promise<any[]>;
+    static stores(): Promise<string[]>;
 }

@@ -82,10 +82,10 @@ var SQLiteStore = /** @class */ (function (_super) {
                         _d.sent();
                         _b = this;
                         _c = {};
-                        return [4 /*yield*/, this.db.prepare("SELECT * from " + this.name + " WHERE id = ?")];
+                        return [4 /*yield*/, this.db.prepare("SELECT * from \"" + this.name + "\" WHERE id = ?")];
                     case 3:
                         _c.get = _d.sent();
-                        return [4 /*yield*/, this.db.prepare("SELECT * FROM " + this.name)];
+                        return [4 /*yield*/, this.db.prepare("SELECT * FROM \"" + this.name + "\"")];
                     case 4:
                         _c.all = _d.sent();
                         return [4 /*yield*/, this.db.prepare("INSERT INTO " + this.name + " (id, value) VALUES ($id, $value) ON CONFLICT(id) DO UPDATE SET value=$value")];
@@ -112,7 +112,7 @@ var SQLiteStore = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.db
-                        .get("SELECT * from " + this.name + " WHERE id = ?", key)
+                        .get("SELECT * from \"" + this.name + "\" WHERE id = ?", key)
                         .then(function (_a) {
                         var value = _a.value;
                         return JSON.parse(value).value;
@@ -143,7 +143,7 @@ var SQLiteStore = /** @class */ (function (_super) {
             var updated;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.db.run("DELETE FROM " + this.name + " WHERE id = ?", key)];
+                    case 0: return [4 /*yield*/, this.db.run("DELETE FROM \"" + this.name + "\" WHERE id = ?", key)];
                     case 1:
                         updated = _a.sent();
                         return [2 /*return*/, updated.changes > 0];

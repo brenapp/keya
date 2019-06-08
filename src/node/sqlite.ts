@@ -23,12 +23,12 @@ export default class SQLiteStore extends Store {
     );
 
     this.statements = {
-      get: await this.db.prepare(`SELECT * from ${this.name} WHERE id = ?`),
-      all: await this.db.prepare(`SELECT * FROM ${this.name}`),
+      get: await this.db.prepare(`SELECT * from "${this.name}" WHERE id = ?`),
+      all: await this.db.prepare(`SELECT * FROM "${this.name}"`),
       set: await this.db.prepare(
-        `INSERT INTO ${
+        `INSERT INTO "${
           this.name
-        } (id, value) VALUES ($id, $value) ON CONFLICT(id) DO UPDATE SET value=$value`
+        }" (id, value) VALUES ($id, $value) ON CONFLICT(id) DO UPDATE SET value=$value`
       )
     };
   }
@@ -41,7 +41,7 @@ export default class SQLiteStore extends Store {
 
   async get(key: string) {
     return this.db
-      .get(`SELECT * from ${this.name} WHERE id = ?`, key)
+      .get(`SELECT * from "${this.name}" WHERE id = ?`, key)
       .then(({ value }) => JSON.parse(value).value);
   }
 
@@ -57,7 +57,7 @@ export default class SQLiteStore extends Store {
 
   async delete(key: string) {
     const updated = await this.db.run(
-      `DELETE FROM ${this.name} WHERE id = ?`,
+      `DELETE FROM "${this.name}" WHERE id = ?`,
       key
     );
     return updated.changes > 0;
@@ -72,7 +72,7 @@ export default class SQLiteStore extends Store {
     }));
   }
 
-  static async stores() {
+  static async stores(): Promise<string[]> {
     return sqlite
       .open(DB)
       .then(db => db.all("SELECT name FROM sqlite_master WHERE type='table'"))
