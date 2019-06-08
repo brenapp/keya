@@ -4,7 +4,8 @@ WANTED: Help with tests! Please get in touch!
 
 A simple, universal document store. Keya supports the following storage mediums:
 
-- Filesystem (Nodejs)
+- SQLite (Nodejs)
+- Filesystem (Nodejs, legacy)
 - IndexedDB (Browser)
 - LocalStorage (Browser, backup)
 
@@ -25,6 +26,8 @@ Access a store
 ```javascript
 const store = await keya.store("records");
 ```
+
+> Note: Store names need to follow SQLite Table name rules/should generally only be alphanumeric characters without spaces. Beyond that can lead to unexpected issues and undocumented behavior
 
 Set a value
 

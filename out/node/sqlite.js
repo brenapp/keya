@@ -88,7 +88,7 @@ var SQLiteStore = /** @class */ (function (_super) {
                         return [4 /*yield*/, this.db.prepare("SELECT * FROM \"" + this.name + "\"")];
                     case 4:
                         _c.all = _d.sent();
-                        return [4 /*yield*/, this.db.prepare("INSERT INTO " + this.name + " (id, value) VALUES ($id, $value) ON CONFLICT(id) DO UPDATE SET value=$value")];
+                        return [4 /*yield*/, this.db.prepare("INSERT INTO \"" + this.name + "\" (id, value) VALUES ($id, $value) ON CONFLICT(id) DO UPDATE SET value=$value")];
                     case 5:
                         _b.statements = (_c.set = _d.sent(),
                             _c);
