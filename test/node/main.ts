@@ -2,19 +2,24 @@ import * as keya from "../../src/node/main";
 
 (async function () {
   try {
-    const store = await keya.store<Date>("date");
+    const store = await keya.store<string>(
+      `date${Math.random().toString().split(".")[1]}`
+    );
 
-    // Set the processing functions (for when using non-object datatypes)
-    store.hydrate = (string) => new Date(Number.parseInt(string));
-    store.stringify = (date) => date.getTime().toString();
-
-    // Set data
-    console.log("set");
-    await store.set("time", new Date());
+    console.log(store.name);
 
     // All
     console.log("all");
-    const all = await store.all();
+    let all = await store.all();
+    console.log(all);
+
+    // Set data
+    console.log("set");
+    await store.set("time", "hello");
+
+    // All
+    console.log("all");
+    all = await store.all();
     console.log(all);
 
     // Get
