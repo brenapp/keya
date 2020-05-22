@@ -1,7 +1,5 @@
 # Keya
 
-WANTED: Help with tests! Please get in touch!
-
 A simple, universal document store. Keya supports the following storage mediums:
 
 - SQLite (Nodejs)
@@ -11,6 +9,8 @@ A simple, universal document store. Keya supports the following storage mediums:
 
 ## API
 
+In general `keya` stores can be thought of as a `Map` that acts asynchronously.
+
 Import
 
 ```javascript
@@ -19,7 +19,7 @@ import * as keya from "keya";
 const keya = require("keya");
 ```
 
-Access a store
+### Access a store
 
 > If the store does not exist when you call this, it will be created automatically for you
 
@@ -29,19 +29,47 @@ const store = await keya.store("records");
 
 > Note: Store names need to follow SQLite Table name rules/should generally only be alphanumeric characters without spaces. Beyond that can lead to unexpected issues and undocumented behavior
 
-Set a value
+#### Hydration
+
+`keya` supports an optional Hydration Function to be passed to `.store` when initalizing. This defaults to `JSON.parse`. The hydration function will be passed the stored string and should return the appropriate value. An example is shown below that allows `keya` to store Maps long-term.
+
+```JavaScript
+
+// Add a custom hydration function
+const store = await keya.store("calls",
+  string => new Map(JSON.parse(string))
+);
+
+
+// Construct the Map to be stored
+const map = new Map([
+  [32, "a"],
+  [45, "b"]
+])
+
+// Assign a toJSON() function for long term storage. This could be implemented in a class extending Map, but for sake of example, it's just done here
+
+const longterm = Object.assign(map, { toJSON() { return [...this] } })
+store.set("map", longterm);
+
+// In another session
+
+const map = store.get("map");
+```
+
+### Set a value
 
 ```javascript
 await store.set("document", { value: 345 });
 ```
 
-Get a value
+### Get a value
 
 ```javascript
 const record = await store.get("document");
 ```
 
-Find values
+### Find values
 
 ```javascript
 const records = store.find(
@@ -49,8 +77,14 @@ const records = store.find(
 );
 ```
 
-Clear the store
+### Clear the store
 
 ```javascript
 store.clear();
+```
+
+### Get all values
+
+```javascript
+store.all(); // [ {key: "hello", value: 43 }, { key: "world", value: 12 } ]
 ```

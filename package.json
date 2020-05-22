@@ -1,6 +1,6 @@
 {
   "name": "keya",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "A simple, universal document store",
   "main": "out/node/main.js",
   "browser": "out/browser/main.js",
@@ -23,6 +23,10 @@
     "test:node": "mocha --require ts-node/register test/node/*.ts"
   },
   "dependencies": {
-    "sqlite": "^3.0.3"
+    "@types/better-sqlite3": "^5.4.0",
+    "@types/sqlite3": "^3.1.6",
+    "better-sqlite3": "^7.0.1",
+    "sqlite": "^4.0.7",
+    "sqlite3": "^4.2.0"
   }
 }
