@@ -1,14 +1,15 @@
 import IndexedDBStore from "./indexeddb";
 import LocalStorageStore from "./localhost";
+import { HydrateFunction } from "../core/Store";
 
 const IDBSupported = "indexedDB" in window;
 
-export async function store(name: string) {
+export async function store<T = any>(name: string) {
   const store = IDBSupported
-    ? new IndexedDBStore(name)
-    : new LocalStorageStore(name);
-  await store.initalize();
-  await store.load();
+    ? new IndexedDBStore<T>(name)
+    : new LocalStorageStore<T>(name);
+
+  await store.prepare();
 
   return store;
 }
