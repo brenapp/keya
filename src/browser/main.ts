@@ -1,6 +1,5 @@
 import IndexedDBStore from "./indexeddb";
 import LocalStorageStore from "./localhost";
-import { HydrateFunction } from "../core/Store";
 
 const IDBSupported = "indexedDB" in window;
 
