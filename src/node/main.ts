@@ -1,14 +1,10 @@
-import FileSystemStore from "./filesystem";
 import SQLiteStore from "./sqlite";
 
-export async function store(name: string) {
-  const store = new SQLiteStore(name);
-  await store.initalize();
-  await store.load();
+export async function store<T = any>(name: string) {
+  const store = new SQLiteStore<T>(name);
+  await store.prepare();
 
   return store;
 }
 
-export async function stores() {
-  return SQLiteStore.stores();
-}
+export const stores = SQLiteStore.stores;
