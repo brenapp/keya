@@ -3,7 +3,6 @@
 A simple, universal document store. Keya supports the following storage mediums:
 
 - SQLite (Nodejs)
-- Filesystem (Nodejs, legacy)
 - IndexedDB (Browser)
 - LocalStorage (Browser, backup)
 
@@ -36,10 +35,11 @@ const store = await keya.store("records");
 ```JavaScript
 
 // Add a custom hydration function
-const store = await keya.store("calls",
-  string => new Map(JSON.parse(string))
-);
+const store = await keya.store("calls");
 
+// Custom conversion functions stores a map by it's entry list
+store.stringify = map => JSON.stringify([...map.entries()]);
+store.hydrate = string => new Map(JSON.parse(string));
 
 // Construct the Map to be stored
 const map = new Map([
@@ -47,10 +47,7 @@ const map = new Map([
   [45, "b"]
 ])
 
-// Assign a toJSON() function for long term storage. This could be implemented in a class extending Map, but for sake of example, it's just done here
-
-const longterm = Object.assign(map, { toJSON() { return [...this] } })
-store.set("map", longterm);
+store.set("map", map);
 
 // In another session
 
